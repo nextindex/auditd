@@ -759,6 +759,24 @@
 ### bit API.
 -a always,exit -F arch=b32 -S all -k 32bit_api
 
+### Chaos Malware detection
+
+-w /boot/System.img.config -p wa -k possible_chaos_malware_infection
+-w /etc/32678 -p wa -k possible_chaos_malware_infection
+-w /etc/init.d/linux_kill -p wa -k possible_chaos_malware_infection
+-w /etc/id.services.conf -p wa -k possible_chaos_malware_infection
+-w /etc/profile.d/bash_config.sh -p wa -k possible_chaos_malware_infection
+
+### Dirty Pipe
+
+-a always,exit -F arch=b64 -S splice -F a0=0x3 -F a2=0x5 -F a3=0x0 -F key=dirtypipe
+-a always,exit -F arch=b64 -S splice -F a0=0x6 -F a2=0x8 -F a3=0x0 -F key=dirtypipe
+-a always,exit -F arch=b64 -S splice -F a0=0x7 -F a2=0x9 -F a3=0x0 -F key=dirtypipe
+
+### Wazuh Related
+
+-w /etc/passwd -p w -k audit-wazuh-w
+
 # Make The Configuration Immutable --------------------------------------------
 
 ##-e 2
